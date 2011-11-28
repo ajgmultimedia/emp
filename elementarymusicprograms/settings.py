@@ -29,6 +29,7 @@ INSTALLED_APPS = (
     'compressor',
     'danemco.misc',
     'danemco.apps.autodoc',
+    'danemco.apps.treemenus',
     'danemco.dash',
     'danemco.uploader',
     'django.contrib.admin',

@@ -1,0 +1,182 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {
+	margin: 0;
+	padding: 0;
+	background: url(images/bg.gif);
+	font-family: Arial, Helvetica, sans-serif;
+	color: #28262a;
+	font-size: 13px;
+}
+
+.clear {
+	clear:both;
+}
+
+img {
+	border: 0;
+}
+
+h1, h2, h3 {
+	color: #7a1419;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-weight: normal;
+}
+
+#leftCurtain {
+	position: absolute;
+	background: url(images/leftCurtain.png) no-repeat;
+	width: 118px;
+	height: 274px;
+	top: 0;
+	left: 0;
+}
+
+#rightCurtain {
+	position: absolute;
+	background: url(images/rightCurtain.png) no-repeat;
+	width: 118px;
+	height: 274px;
+	top: 0;
+	right: 0;
+}
+
+#wrapper {
+	background: url(images/wrapperBG.gif) repeat-x top center;
+}
+
+#header {
+	margin: 0 auto;
+	width: 1035px;
+	height: 433px;
+	background: url(images/headerBG.jpg) no-repeat;
+}
+
+#nav {
+	text-transform: uppercase;
+	padding: 10px 0 0 38px;
+	font-size: 15px;
+	
+}
+
+#nav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#nav li {
+	float: left;
+	margin: 0 15px;
+	padding: 10px 10px 7px;
+}
+
+#nav a {
+	color: #fff;
+	text-decoration:none;
+}
+
+#nav a:hover {
+	color: #b48787;
+}
+
+.opposite {
+	background: #fff;
+	font-weight: bold;
+}
+
+#nav .opposite a {
+	color: #8a090a;
+}
+
+#nav .opposite a:hover {
+	color: #000;
+}
+
+#logo {
+	padding: 110px 0 0 90px;
+	*padding: 50px 0 0 90px;
+}
+
+#page {
+	background: #fff;
+	margin: 0 auto;
+	width: 959px;
+	padding-bottom: 26px;
+}
+
+#sidebar {
+	float: left;
+	width: 279px;
+	padding-left:26px;
+	padding-right: 23px;
+}
+
+#sidenav {
+	background: url(images/navBG.gif) repeat-y;
+}
+
+#sidenav ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#sidenav li {
+	padding: 7px 0 7px 20px;
+	background: url(images/note.gif) no-repeat 245px center;
+}
+
+#sidenav a {
+	color: #fff;
+	text-decoration:none;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 16px;
+}
+
+#sidenav a:hover {
+	color: #b48787;
+}
+
+#sidenav h2 {
+	color: #fff;
+	text-align: center;
+	text-transform:uppercase;
+	margin: 0;
+	font-weight:normal;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.divider {
+	background: url(images/divider.gif) no-repeat;
+	width: 272px;
+	height: 3px;
+	margin-left:3px;
+	*margin-left: -17px;
+	*margin-top: 15px;
+}
+
+.sidefooter {
+	background: url(images/navFooter.gif) no-repeat;
+	width: 279px;
+	height: 18px;
+}
+
+#content {
+	float: right;
+	width: 595px;
+	padding-right: 25px;
+}
+
+.content {
+	
+}
+
+#footer {
+	width: 600px;
+	margin: 0 auto;
+	padding: 10px 0;
+	text-align:center;
+	color: #666;
+}

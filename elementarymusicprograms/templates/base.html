@@ -1,10 +1,10 @@
-{% load danemco_tags %}
+{% load danemco_tags tree_menu_tags %}
 {% comment %}
- Developer Name:
- Creation Date:
+ Developer Name: Nolan Bradshaw
+ Creation Date: 11/28/11
  Modified Date
  Notes:
- Please look at shop/base.html for the new block setup.
+
 {% endcomment %}
 <!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -12,23 +12,24 @@
         <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
         <meta content="{% block keywords %}{% endblock %}" name="keywords" />
         <meta content="{% block description %}{% endblock %}" name="description" />
-        <title>{% block title %}{% endblock %}</title>
-	<link rel="icon" type="image/png" href="/media/styles/images/favicon.png" />
+        <title>Elementary Music Programs | {% block title %}{{flatpage.title}}{% endblock %}</title>
 
-	{# STYLES BLOCK #}
-	{% block appmedia %}{% endblock appmedia %}
-	{% block extrastyles %}{% endblock %}
+{# STYLES BLOCK #}
+{% block appmedia %}{% endblock appmedia %}
+
         <link rel="stylesheet" type="text/css" href="/media/styles/style.css" />
-       
+        <link rel="stylesheet" type="text/css" href="/media/styles/override.css" />
+	<link rel="icon" type="image/png" href="/media/styles/images/favicon.png" />
         
         <script type="text/javascript" src="/media/dash/js/jquery.js"></script>
         <script type="text/javascript" src="/media/dash/js/jquery.form.js"></script>
 	<!-- <script type="text/javascript" src="/media/dash/js/jquery.cycle.js"></script>  SLIDESHOW-->   
-        <script type="text/javascript">
+        
+	<script type="text/javascript">
             {# include 'shop/ajax_add_to_cart.js' #}
         </script>
-	{% block extrascripts %}{% endblock %}
-    
+
+  
      {# ADDS BLOG RSS #}        
      {# block bloghead #}{# insert_blog_feeds #}{# endblock #}
      
@@ -46,57 +47,66 @@
         <![endif]-->
 
     </head>
-    <body bgcolor="#efefef">
-        <table bgcolor="#FFFFFF" width="1000" height="700" align="center" style="border:solid 1px #cfcfcf;">
-            <tr>
-                <td height="30">
-                    <a href="/">Home</a>
-                </td>
-                <td>
-                    <a href="/contact/">Contact</a>
-                </td>
-                <td>
-                    <a href="/aboutus/">About Us</a>
-                </td>
-                <td>
-                    <a href="/shop/">Shop</a>
-                </td>
-                <td>
-                    <a href="/shop/cart/">Shopping Cart</a>
-                </td>
-                <td>
-                    <a href="/newsletter/">Newsletter</a>
-                </td>
-                <td>
-                    <a href="/gallery/">Gallery</a>
-                </td>
-                <td>
-                    <a href="/events/">Calendar</a>
-                </td>
-                <td>
-                    <a href="/blog/">Blog</a>
-                </td>
-                <td>
-                    <a href="/dash/" target="_new">Dash</a>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="100%">
-                    <table width="100%" height="100%">
-                        <tr>
-                            <td valign="top" height="30">
-                                {% insert_flatpage_content 'welcome' %}
-                            <td>
-                        </tr>
-                        <tr>
-                            <td valign="top">
-                                {% block shop_navbar %}{% endblock %}
-                                {% block content %}{% endblock %}
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </body>
+<body>
+
+<div id="leftCurtain"></div>
+<div id="rightCurtain"></div>
+
+<div id="wrapper">
+
+	<div id="header">
+    
+    	<div id="nav">
+	 {% show_menu "topmenu" "unordered-list-named" %}
+	<script type ="text/javascript">
+$('#nav a[href^="/' + window.location.pathname.split('/')[1] + '/"]').parents('li').addClass('').addClass('opposite')
+	</script>  
+            <div class="clear"></div>
+        </div>
+        
+        <div id="logo">
+        	<a href="/"><img src="/media/styles/images/logo.png" /></a>
+        </div>
+        
+    </div>
+    
+    <div id="page">
+    
+    	<div id="sidebar">
+        	<div id="sidenav">
+            	<h2>Samples</h2>
+                <div class="divider" style="*margin-left:3px;"></div>
+            	<ul>
+                	<li><a href="/vocals/">Vocals</a></li>
+                    <div class="divider"></div>
+                    <li><a href="/clips/">Performance Clips</a></li>
+                    <div class="divider"></div>
+                    <li><a href="/teachingaid/">Teaching Aide Clips</a></li>
+                </ul>
+            </div>
+            <div class="sidefooter"></div>
+            <p>
+            	<a href=""><img src="/media/styles/images/gallery.jpg" /></a>
+            </p>
+            <p>
+            	<a href=""><img src="/media/styles/images/orderNow.gif" /></a>
+            </p>
+        </div>
+        
+        <div id="content" class="content">
+	<h1>{% block pagetitle %}{{flatpage.title}}{% endblock pagetitle %}</h1>
+        {% block content %}
+        {% endblock content %}
+        </div>
+        <div class="clear"></div>
+        
+    </div>
+    
+    <div id="footer">
+    	&copy; Copyright {% now "Y" %} Elementary Music Programs. All Rights Reserved.
+    </div>
+    
+</div>
+
+</body>
 </html>

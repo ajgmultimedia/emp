@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load danemco_tags %}
+
+{# HEAD #}
+{% block title %}Contact Information{% endblock %}
+
+{% block appmedia %}
+  <link rel="stylesheet" type="text/css" href="{{ THEMES_URL }}contact.css" />
+{% endblock appmedia %}
+     
+{% block extrahead %}{% endblock %}
+
+{% block extra-head %}{% endblock %}
+{# ENDHEAD #}
+
+{# BODY #}
+{% block pagecontent %}
+{% block pagetitle %}{{flatpage.title}}{% endblock pagetitle %}
+{% block content %}
+    {% insert_flatpage_content 'contactus' %}
+    <form method="post" action=".">
+        <table class="contact-form">
+            {{ form }}
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Send Message" /></td>
+            </tr>
+        </table>
+    </form>
+{% endblock content %}
+{% endblock pagecontent %}
+{# ENDBODY #}
