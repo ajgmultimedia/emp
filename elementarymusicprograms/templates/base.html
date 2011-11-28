@@ -1,0 +1,102 @@
+{% load danemco_tags %}
+{% comment %}
+ Developer Name:
+ Creation Date:
+ Modified Date
+ Notes:
+ Please look at shop/base.html for the new block setup.
+{% endcomment %}
+<!DOCTYPE html  PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'  'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type" />
+        <meta content="{% block keywords %}{% endblock %}" name="keywords" />
+        <meta content="{% block description %}{% endblock %}" name="description" />
+        <title>{% block title %}{% endblock %}</title>
+	<link rel="icon" type="image/png" href="/media/styles/images/favicon.png" />
+
+	{# STYLES BLOCK #}
+	{% block appmedia %}{% endblock appmedia %}
+	{% block extrastyles %}{% endblock %}
+        <link rel="stylesheet" type="text/css" href="/media/styles/style.css" />
+       
+        
+        <script type="text/javascript" src="/media/dash/js/jquery.js"></script>
+        <script type="text/javascript" src="/media/dash/js/jquery.form.js"></script>
+	<!-- <script type="text/javascript" src="/media/dash/js/jquery.cycle.js"></script>  SLIDESHOW-->   
+        <script type="text/javascript">
+            {# include 'shop/ajax_add_to_cart.js' #}
+        </script>
+	{% block extrascripts %}{% endblock %}
+    
+     {# ADDS BLOG RSS #}        
+     {# block bloghead #}{# insert_blog_feeds #}{# endblock #}
+     
+     {% block extrahead %}{% endblock %}
+     {% block extra-head %}{% endblock %}
+        
+        <!--[if IE]>
+            <link rel="stylesheet" type="text/css" href="/media/styles/ie.css" />
+        <![endif]-->
+        <!--[if IE 6]>
+            <link rel="stylesheet" type="text/css" href="/media/styles/ie6.css" />
+        <![endif]-->
+        <!--[if IE 7]>
+            <link rel="stylesheet" type="text/css" href="/media/styles/ie7.css" />
+        <![endif]-->
+
+    </head>
+    <body bgcolor="#efefef">
+        <table bgcolor="#FFFFFF" width="1000" height="700" align="center" style="border:solid 1px #cfcfcf;">
+            <tr>
+                <td height="30">
+                    <a href="/">Home</a>
+                </td>
+                <td>
+                    <a href="/contact/">Contact</a>
+                </td>
+                <td>
+                    <a href="/aboutus/">About Us</a>
+                </td>
+                <td>
+                    <a href="/shop/">Shop</a>
+                </td>
+                <td>
+                    <a href="/shop/cart/">Shopping Cart</a>
+                </td>
+                <td>
+                    <a href="/newsletter/">Newsletter</a>
+                </td>
+                <td>
+                    <a href="/gallery/">Gallery</a>
+                </td>
+                <td>
+                    <a href="/events/">Calendar</a>
+                </td>
+                <td>
+                    <a href="/blog/">Blog</a>
+                </td>
+                <td>
+                    <a href="/dash/" target="_new">Dash</a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="100%">
+                    <table width="100%" height="100%">
+                        <tr>
+                            <td valign="top" height="30">
+                                {% insert_flatpage_content 'welcome' %}
+                            <td>
+                        </tr>
+                        <tr>
+                            <td valign="top">
+                                {% block shop_navbar %}{% endblock %}
+                                {% block content %}{% endblock %}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
