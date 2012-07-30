@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-import sys; sys.path.insert(0, '/var/www/virtualenvs/beta/lib/python2.6/site-packages')
+activate_this = '/var/www/virtualenvs/beta/bin/activate_this.py'; execfile(activate_this, dict(__file__=activate_this))
+import sys
 from django.core.management import execute_manager
 try:
     import settings # Assumed to be in the same directory.

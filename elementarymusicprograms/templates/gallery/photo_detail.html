@@ -1,0 +1,50 @@
+{% extends 'gallery/base.html' %}
+
+{% load danemco_tags gallery_tags %}
+
+{% block title %}Photo Gallery: {{ object.name }}{% endblock %}
+
+{% block navbar %}
+<div id="gallery_nav">
+<a href="/">Home</a> &rsaquo;
+<a href="{% url list-photo-albums %}">Gallery</a> &rsaquo;
+<a href="{% url show-album object.album.id %}">{{ object.album.name }}</a> &rsaquo;
+{{ object.name }}
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="photo" align="center">
+    <table id="photocontrolstable" cellpadding="0" cellspacing="0" width="100%" border="0">
+        <tr>
+            <td align="left" valign="top">
+                {% with object|next_previous_object:"previous" as no %}
+                    <div class="object_previous"><a href="{% url show-photo no.id %}" title="View this photo">&laquo;&nbsp;Previous</a></div>
+                {% endwith %}
+            </td>
+			<td align="center" valign="top" width="100%">
+				<div class="photocontrols"><a href="{% url show-album object.album.id %}">View All Photos</a></div>
+			</td>
+            <td align="right" valign="top">
+                {% with object|next_previous_object:"next" as no %}
+                    <div class="object_next"><a href="{% url show-photo no.id %}" title="View this photo">Next&nbsp;&raquo;</a></div>
+                {% endwith %}
+            </td>
+        </tr>
+		<tr>
+			<td colspan="4" align="center" valign="top">
+				{% thumbnail object.image 590x590 as full_image %}
+				<div id="photodescimg" style="width:{{ full_image.width }}px; height:{{ full_image.height }}px;">
+					<div id="photodescinnerimg" style="background:url('{{ full_image }}'); width:{{ full_image.width }}px; height:{{ full_image.height }}px;"></div>
+				</div>
+				{% if object.description %}
+				<div id="photodescription" style="max-width:{{ full_image.width }}px;">
+					<div class="photoname">{{ object.name }}</div>
+				  	{{ object.description|safe }}
+				</div>
+				{% endif %}
+			</td>
+		</tr>
+    </table>
+</div>
+{% endblock content %}

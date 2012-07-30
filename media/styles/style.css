@@ -24,6 +24,15 @@ h1, h2, h3 {
 	font-weight: normal;
 }
 
+a {
+	color: #800505;
+}
+
+a:hover {
+	color: #b48787;
+}
+
+
 #leftCurtain {
 	position: absolute;
 	background: url(images/leftCurtain.png) no-repeat;
@@ -50,7 +59,7 @@ h1, h2, h3 {
 	margin: 0 auto;
 	width: 1035px;
 	height: 433px;
-	background: url(images/headerBG.jpg) no-repeat;
+	background: url(images/headerBG2.jpg) no-repeat;
 }
 
 #nav {
@@ -70,11 +79,14 @@ h1, h2, h3 {
 	float: left;
 	margin: 0 15px;
 	padding: 10px 10px 7px;
+	z-index: 3000;
 }
 
 #nav a {
 	color: #fff;
 	text-decoration:none;
+	z-index: 3000;
+	position: relative;
 }
 
 #nav a:hover {
@@ -180,3 +192,5 @@ h1, h2, h3 {
 	text-align:center;
 	color: #666;
 }
+
+	

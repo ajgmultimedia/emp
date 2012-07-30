@@ -1,0 +1,195 @@
+{% extends "shop/base.html" %}
+{% comment %}
+-------------------------------------------------------------------
+This is the base product detail page.
+To modify the templates of specific types of products, such as
+ProductVariations or CustomProducts, look for product/detail_xxx.html
+-------------------------------------------------------------------
+{% endcomment %}
+{% load i18n %}
+{% load thumbnail %}
+{% load satchmo_price %}
+{% load satchmo_currency satchmo_category %}
+{% load satchmo_util satchmo_discounts %}
+{% load app_plugins config_tags %}
+{% load social_tags %}
+{% block title %}Shop | Category: {{ product.category.all.0.translated_name }} | Product: {{ product.translated_name }}{% endblock %}
+
+{% block pagetitle %}Product: {{ product.translated_name }}{% endblock %}
+
+{% block extra-head %}
+  <script type="text/javascript" src="/media/js/jquery.colorbox.js"></script>
+  <link rel="stylesheet" type="text/css" href="/media/css/colorbox/theme4/colorbox.css" />
+  <script type="text/javascript">
+    $(function(){
+        $('.product-image').colorbox({opacity:0.5});
+    });
+  </script>
+{% if product.meta %}
+    <meta name="description" content="{{product.meta}}">
+{% endif %}
+{% endblock %}
+
+{% block navbar %}
+<div id="shop_nav">
+<li class="first"><a href="{{ shop_base }}/">{% trans "Shop Home" %}</a></li>
+{% for name, url in product.category.all.0.get_url_name %}
+    <li><a href="{{ url }}">{{ name }}</a></li>
+{% endfor %}
+<li class="last"><a href="{{ product.url }}">{{product.name}}</a></li>
+<div style="clear:both"></div>
+</div>
+{% endblock %}
+
+{% block extrahead %}
+
+  {% social_network_apis %}
+
+<script type="text/javascript">
+    function toggleProductRatings()
+    {
+        elm = document.getElementById('product-rating-area');
+        control = document.getElementById('product-rating-area-show-hide');
+        if (elm.style.display == 'none')
+        {
+            elm.style.display = 'block';
+            control.innerHTML = '<a href="javascript:toggleProductRatings()">Hide Product Reviews</a>';
+        }
+        else
+        {
+            elm.style.display = 'none';
+            control.innerHTML = '<a href="javascript:toggleProductRatings()">Show Product Reviews</a>';
+        }
+    }
+</script>
+{% endblock %}
+ 
+{% block content %}
+<h3 style="margin-left:15px;">{{ product.translated_name }}</h3>
+
+{% block productdetail %}
+<div style="float:left; margin-right:15px;margin-left:15px;">
+  {% block productimages %}
+{% for pic in product.productimage_set.all %}
+    {% thumbnail pic.picture 980x700 as full_image %}
+    {% if forloop.first %}
+      {% thumbnail pic.picture 250x250 as med_image %}
+      <div id="main_image_pic">
+    	<a class="product-image" href="{{ full_image.absolute_url }}">
+          <img id="main_image" src="{{ med_image.absolute_url }}" /><br/>
+          <div class="view">View Larger Image</div>
+        </a>
+      </div>
+    {% else %}
+      {% thumbnail pic.picture 50x50 as thumb_image %}
+      <a class="product-image" href="{{ full_image.absolute_url }}"><img id="product_other_imgs" src="{{ thumb_image.absolute_url }}" border="0" /></a>
+    {% endif %}
+
+{% endfor %}
+{% endblock %}
+</div>
+<div style="margin-left:20px;">
+<div id="category_description">{% block productdescription %}
+
+<p>{{ product.translated_description }}</p>{% endblock productdescription %}
+</div>
+<!--
+<div id="items_in_stock">({{ product.items_in_stock|floatformat }} {% if product.measuredproduct.measurement_set %}yard{% else %}item{% endif %}{{ product.items_in_stock|pluralize }} in stock)</div>
+-->
+{% if user.group %}{{ user.group|title }} {% endif  %}<p>{% trans "Price" %} {% if default_view_tax %} {% trans '(incl. tax)' %}{% endif %}:
+
+    {% if sale %}<strike id="fullprice" style="display: block;">{% product_price product 1 "" %}</strike>{% endif %}
+    <span>{% product_price %}</span>  {% block productprice-after %}{% endblock %}
+</p><br />
+<br />
+{% ifnotequal product|discount_price:sale 0 %}
+
+{% with product.translated_attributes as atts %}{% if atts %}
+<p class="productattributes">
+{% for att in product.translated_attributes %}
+{{ att.description }}: {{ att.value }}<br/>
+{% endfor %}
+</p>
+{% endif %}{% endwith %}
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<form id="product_form" action="{% url satchmo_smart_add %}" method="post">
+{% block payment_form %}    
+{% if product.measuredproduct.measurement_set %}
+        {% trans "Amount" %} 
+        <select name="measure_id">
+        {% for measure in product.measuredproduct.measurement_set.measure_set.all %}
+          {% if "PRODUCT.NO_STOCK_CHECKOUT"|config_boolean or measure.number <= product.items_in_stock  %}  
+	  <option value="{{ measure.id }}">{{ measure }}</option>
+	{% else %}
+	{% endif %}
+        {% endfor %}
+        </select>
+        <input type="hidden" name="quantity" id="quantity" value="1" />
+    {% else %}
+        {% if product.classproduct %}
+        <div class="class-product-info">
+            <h4>Session Begins</h4>
+            {{ product.classproduct.start_time|date:"F d, Y \a\t h:i a" }}
+            <h4>Session Ends</h4>
+            {{ product.classproduct.end_time|date:"F d, Y \a\t h:i a" }}
+            {% if product.classproduct.supply_list %}<h4><a href="{{ product.classproduct.supply_list.url }}">Supply List</a></h4>{% endif %}
+            {% if product.classproduct.kit_fee %}<h4>Kit Fee</h4>
+            {{ product.classproduct.kit_fee|currency }}{% endif %}
+            {% if product.classproduct.handout_fee %}<h4>Handout Fee</h4>
+            {{ product.classproduct.handout_fee|currency }}{% endif %}
+            {% if product.classproduct.skill_level %}<h4>Skill Level</h4>
+            {{ product.classproduct.get_skill_level_display }}{% endif %}
+            {% if product.classproduct.class_type %}<h4>Class Type</h4>
+            {{ product.classproduct.get_class_type_display }}{% endif %}
+        </div>
+        {% trans "Seats" %}
+        {% else %}
+        {% trans "Quantity" %}
+        {% endif %}
+         <input type="text" size="5" name="quantity" id="quantity" value="1" class="priced" />
+    {% endif %}
+{% endblock %}
+<input type="hidden" name="productname" id="productname" value="{{ product.slug }}" />
+<input type="submit" name="addcart" value="{% trans "Add to Cart" %}" />
+{% plugin_point "product_add_buttons" %}
+{% plugin_point "product_form" %}
+<div id="statusupdate-actual" class="statusupdateproduct statusupdate"></div>
+</form>
+{% endifnotequal %}
+</div>
+{% plugin_point "product_after_form" %}
+{% endblock %}
+{% block productfooter %}
+{% if sale %}{% include "product/product_discount_eligible.html" %}{% endif %}
+<div class="clear"></div>
+
+
+
+	<p id="product-rating-area-show-hide"></p>
+<div id="product-rating-area">
+    {% plugin_point "product_footer" %}
+<div style="clear:both;"></div>
+</div>
+<script type="text/javascript">
+    toggleProductRatings();
+</script>
+
+{% block related_products %}
+    {% if product.one_way_related_items.active.count or product.related_items.active.count %}
+        <div id="product_category">
+            <h2>Related Products</h2>
+                <ul>
+                    {% for product in product.one_way_related_items.active %}
+                        {% include "product/_products.html" %}
+                    {% endfor %}
+                    {% for product in product.related_items.active %}
+                        {% include "product/_products.html" %}
+                    {% endfor %}
+                </ul>
+        </div>
+    {% endif %}
+{% endblock %}  
+                
+{% endblock %}
+{% endblock %}

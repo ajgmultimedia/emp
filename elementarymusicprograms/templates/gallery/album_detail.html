@@ -1,0 +1,40 @@
+{% extends "gallery/base.html" %}
+
+{% block title %}Photo Gallery: {{ album.name }}{% if is_paginated %}, page {{ page }}{% endif %}{% endblock %}
+{% block pagetitle %}Photo Gallery: {{ album.name }}{% if is_paginated %}, page {{ page }}{% endif %}{% endblock %}
+
+{% block navbar %}
+<div id="gallery_nav">
+<a href="/">Home</a> &rsaquo;
+<a href="{% url list-photo-albums %}">Gallery</a> &rsaquo;
+{{ album.name }}{% if is_paginated %}, page {{ page }}{% endif %}
+</div>
+{% endblock %}
+
+
+{% block content %}
+{% if album.description %}
+<div class="album-description">
+  {{ album.description|safe }}
+</div>
+{% endif %}
+
+{% include 'gallery/photo_pagination.html' %}
+
+{% for photo in photos %}
+{% if forloop.first %}<ul class="gallery-photo-list">{% endif %}
+    <li>
+      <a href="{% url show-photo photo.id %}" title="View this photo">
+      	{% thumbnail photo.image 250x250 as image %}
+      	<div id="photosection" >
+			<div style="background:url('{{ image }}') top center no-repeat; width:150px; height:150px; border:none; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px;"></div>
+		</div>
+      </a>
+    </li>
+{% if forloop.last %}</ul>{% endif %}
+{% empty %}
+<p>No photos have been uploaded into this album.</p>
+{% endfor %}
+
+{% include 'gallery/photo_pagination.html' %}
+{% endblock content %}

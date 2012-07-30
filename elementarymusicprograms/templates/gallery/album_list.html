@@ -1,0 +1,41 @@
+{% extends "gallery/base.html" %}
+
+{% block title %}Photo Gallery{% if is_paginated %}, page {{ page }}{% endif %}{% endblock %}
+{% block pagetitle %}Photo Gallery{% if is_paginated %}, page {{ page }}{% endif %}{% endblock %}
+
+{% block navbar %}
+<div id="gallery_nav">
+<a href="/">Home</a> &rsaquo;
+<a href="{% url list-photo-albums %}">Gallery</a> &rsaquo;
+All Albums{% if is_paginated %}, page {{ page }}{% endif %}
+</div>
+
+{% endblock %}
+{% block content %}
+{% insert_flatpage_content 'gallery' %}
+
+{% if object_list %}
+{% include 'gallery/album_pagination.html' %}
+<div style="height:10px;"></div>
+<ul class="gallery-album-list">
+  {% for album in object_list %}
+    <li>
+      <a href="{% url show-album album.id %}" title="View {{ album.name|safe }}">
+      	
+      	{% thumbnail album.image 250x250 as image %}
+      	<div id="photosection">
+			<div style="background:url('{{ image }}') top center no-repeat; width:150px; height:150px; border:none; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px;"></div>
+		</div>
+        {{ album.name|safe }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+
+{% include 'gallery/album_pagination.html' %}
+{% else %}
+<p>No albums are available.</p>
+{% endif %}
+{% endblock content %}
+
+

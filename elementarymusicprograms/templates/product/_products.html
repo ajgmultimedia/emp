@@ -1,0 +1,85 @@
+{% load i18n %}
+{% load thumbnail %}
+{% load satchmo_price %}
+{% load satchmo_currency satchmo_category satchmo_product %}
+{% load satchmo_util satchmo_discounts %}
+{% load app_plugins config_tags  %}
+{% if forloop.first %} <ul>  {% endif %}
+    <li>
+	<div class="category_product_name"><a href="{{ product.get_absolute_url }}">{{ product.translated_name }}</a></div>
+        <div class="category_product_image">{% include "product/_products_image.html" %}</div>
+
+        {% ifnotequal product|discount_price:sale 0 %}
+        <form id="product_form_{{ product.id }}" action="{% url satchmo_smart_add %}" method="post">
+            <div id="statusupdate-actual_{{ product.id }}" class="statusupdate">{% product_price %}</div>
+            {% get_product_options product as options %}
+            <!--
+            <div id="items_in_stock">({{ product.items_in_stock|floatformat }} {% if product.measuredproduct.measurement_set %}yard{% else %}item{% endif %}{{ product.items_in_stock|pluralize }} in stock)</div>
+            -->
+            {% for option_group in options %}
+                {% ifequal option_group.id 5 %}
+
+                {% endifequal %}
+                {{ option_group.name }}
+
+                <select name="{{option_group.id}}" id="option_group_{{product.id}}" class="priced" {% ifequal option_group.id 1 %}onchange="javascript:quantity_change('{{product.id}}');"{% endifequal %}>
+                <option value="" selected="selected">Select Type</option>
+                {% for choice in option_group.items %}
+                <option value="{{ choice.value }}" {% if choice.selected %}selected="selected"{% endif %}>{{ choice.translated_name }}
+                {% if choice.price_change %}
+                    {% option_price choice %}
+                {% endif %}
+                </option>
+                {% endfor %}
+                </select>
+            {% endfor %}
+            <br />
+            	{% if product.measuredproduct.measurement_set %}
+	        {% trans "Amount" %}
+			<select name="measure_id">
+	        {% for measure in product.measuredproduct.measurement_set.measure_set.all %}
+			{% if "PRODUCT.NO_STOCK_CHECKOUT"|config_boolean or measure.number <= product.items_in_stock  %}
+			<option value="{{ measure.id }}">{{ measure }}</option>
+			{% else %}
+			{% endif %}
+			{% endfor %}
+			</select>
+        	<input type="hidden" name="quantity" id="quantity" value="1" />
+		{% else %}
+                {% if product.classproduct %}
+                <div class="class-product-info">
+                    <h4>Session Begins</h4>
+                    {{ product.classproduct.start_time|date:"F d, Y \a\t h:i a" }}
+                    <h4>Session Ends</h4>
+                    {{ product.classproduct.end_time|date:"F d, Y \a\t h:i a" }}
+                    {% if product.classproduct.supply_list %}<h4><a href="{{ product.classproduct.supply_list.url }}">Supply List</a></h4>{% endif %}
+                    {% if product.classproduct.kit_fee %}<h4>Kit Fee</h4>
+                    {{ product.classproduct.kit_fee|currency }}{% endif %}
+                    {% if product.classproduct.handout_fee %}<h4>Handout Fee</h4>
+                    {{ product.classproduct.handout_fee|currency }}{% endif %}
+                    {% if product.classproduct.skill_level %}<h4>Skill Level</h4>
+                    {{ product.classproduct.get_skill_level_display }}{% endif %}
+                    {% if product.classproduct.class_type %}<h4>Class Type</h4>
+                    {{ product.classproduct.get_class_type_display }}{% endif %}
+                </div>
+                {% trans "Seats" %}
+                {% else %}
+                    <font id="quantity_label_{{ product.id }}">
+                        {% trans "Quantity" %}
+                    </font>
+                {% endif %}
+                <font id="quantity_div_{{ product.id }}">
+                    <input type="text" size="5" name="quantity" id="quantity" value="1" class="priced" />
+                </font>
+            {% endif %}
+        <input type="hidden" name="productname" id="productname" value="{{product.slug}}" />
+        <input type="submit" name="addcart" value="{% trans "Add to cart" %}" />
+        {% plugin_point "product_add_buttons" %}
+        {% plugin_point "product_form" %}
+        </form>
+        <script type="text/javascript">
+            quantity_change('{{product.id}}');
+        </script>
+        {% endifnotequal %}
+    </li>
+{% if forloop.last %} </ul> {% endif %}

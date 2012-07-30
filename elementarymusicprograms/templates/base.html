@@ -14,27 +14,39 @@
         <meta content="{% block description %}{% endblock %}" name="description" />
         <title>Elementary Music Programs | {% block title %}{{flatpage.title}}{% endblock %}</title>
 
-{# STYLES BLOCK #}
-{% block appmedia %}{% endblock appmedia %}
+		{# CSS Files #}
+		{% block appmedia %}{% endblock appmedia %}
+		{% block extrastyles %}{% endblock %}
 
         <link rel="stylesheet" type="text/css" href="/media/styles/style.css" />
         <link rel="stylesheet" type="text/css" href="/media/styles/override.css" />
-	<link rel="icon" type="image/png" href="/media/styles/images/favicon.png" />
+        <link rel="stylesheet" type="text/css" href="/media/static/quickcart/quickcart.css" />
+
+		<link rel="icon" type="image/png" href="/media/styles/images/favicon.png" />
         
+		{# JavaScript Files #}
         <script type="text/javascript" src="/media/dash/js/jquery.js"></script>
         <script type="text/javascript" src="/media/dash/js/jquery.form.js"></script>
-	<!-- <script type="text/javascript" src="/media/dash/js/jquery.cycle.js"></script>  SLIDESHOW-->   
-        
-	<script type="text/javascript">
-            {# include 'shop/ajax_add_to_cart.js' #}
+		<script type="text/javascript" src="/media/scripts/jquery.media.js"></script>
+		<script type="text/javascript" src="/media/static/quickcart/quickcart.js"></script>
+	
+		<script type="text/javascript">
+		    $(function() {
+		        $('a.media').media( { width: 300, height: 24 } );
+		    });
+		</script>
+	        
+		<script type="text/javascript">
+            {% include 'shop/ajax_add_to_cart.js' %}
         </script>
 
+  		{% block extrascripts %}{% endblock %}
   
-     {# ADDS BLOG RSS #}        
-     {# block bloghead #}{# insert_blog_feeds #}{# endblock #}
-     
-     {% block extrahead %}{% endblock %}
-     {% block extra-head %}{% endblock %}
+	     {# ADDS BLOG RSS #}        
+	     {# block bloghead #}{# insert_blog_feeds #}{# endblock #}
+	     
+	     {% block extrahead %}{% endblock %}
+	     {% block extra-head %}{% endblock %}
         
         <!--[if IE]>
             <link rel="stylesheet" type="text/css" href="/media/styles/ie.css" />
@@ -86,15 +98,19 @@ $('#nav a[href^="/' + window.location.pathname.split('/')[1] + '/"]').parents('l
             </div>
             <div class="sidefooter"></div>
             <p>
-            	<a href=""><img src="/media/styles/images/gallery.jpg" /></a>
+            	<a href="/gallery/2/"><img src="/media/styles/images/gallery.jpg" /></a>
             </p>
             <p>
-            	<a href=""><img src="/media/styles/images/orderNow.gif" /></a>
+            	<a href="/shop/"><img src="/media/styles/images/orderNow.gif" /></a>
+            </p>
+            <p>
+            	<a href="https://www.facebook.com/pages/Elementary-Music-Programs/326526880735698" target="_blank"><img src="/media/styles/images/facebook.jpg" /></a>
             </p>
         </div>
         
         <div id="content" class="content">
 	<h1>{% block pagetitle %}{{flatpage.title}}{% endblock pagetitle %}</h1>
+		{% include "snippets/messages.html" %}
         {% block content %}
         {% endblock content %}
         </div>
