@@ -343,10 +343,11 @@ input[type="password"] {
 #product_category li {
 	border:solid 1px #141414;
 	margin-right: 25px;
-	min-height: 365px; 
+	min-height: 365px;
+	min-width: 235px; 
 }
 #product_category ul li form select {
-	max-width: 160px;
+	/*max-width: 160px;*/
 }
 
 .share_links {
@@ -411,4 +412,16 @@ input[type="password"] {
 	text-shadow:0px 1px 2px #141414;
 }
 
+.child_category h4 {
+	font-family: George, "Times New Roman", Times, serif;
+	font-size: 1.17em;
+	font-weight: normal;
+}
 
+h3 {
+	font-size: 1.5em;
+}
+
+.statusupdate {
+	width: 235px;
+}
