@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-activate_this = '/var/www/virtualenvs/beta/bin/activate_this.py'; execfile(activate_this, dict(__file__=activate_this))
+activate_this = '/var/www/virtualenvs/stable/bin/activate_this.py'; execfile(activate_this, dict(__file__=activate_this))
 import sys
 from django.core.management import execute_manager
 try:

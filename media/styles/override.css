@@ -342,7 +342,11 @@ input[type="password"] {
 }
 #product_category li {
 	border:solid 1px #141414;
-	margin-right: 25px; 
+	margin-right: 25px;
+	min-height: 365px; 
+}
+#product_category ul li form select {
+	max-width: 160px;
 }
 
 .share_links {

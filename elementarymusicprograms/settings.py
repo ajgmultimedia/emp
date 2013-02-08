@@ -14,7 +14,7 @@ ROOT_URLCONF = 'elementarymusicprograms.urls'
 TEMPLATE_DIRS = (
     os.path.join(DIRNAME, 'templates'),
 )
-
+DEBUG = False
 VELOCITY_SITE = False
 DATABASE_NAME = 'elementarymusicprograms'
 DATABASE_USER = 'elementarymusicp'
