@@ -70,9 +70,11 @@ ProductVariations or CustomProducts, look for product/detail_xxx.html
 {% endblock %}
  
 {% block content %}
+{% comment %}
 {% if "chore-song" not in product.slug %}
 <h3 style="margin-left:15px;">{{ product.translated_name }}</h3>
 {% endif %}
+{% endcomment %}
 {% block productdetail %}
 <div style="float:left; margin-right:15px;margin-left:15px;">
   {% block productimages %}
