@@ -11,7 +11,7 @@ ProductVariations or CustomProducts, look for product/detail_xxx.html
 {% load satchmo_price %}
 {% load satchmo_currency satchmo_category %}
 {% load satchmo_util satchmo_discounts %}
-{% load app_plugins config_tags %}
+{% load app_plugins config_tags satchmo_cart %}
 {% load social_tags %}
 {% block title %}Shop | Category: {{ product.category.all.0.translated_name }} | Product: {{ product.translated_name }}{% endblock %}
 
@@ -122,6 +122,9 @@ ProductVariations or CustomProducts, look for product/detail_xxx.html
 
 {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 <form id="product_form" action="{% url satchmo_smart_add %}" method="post">
+{% with cart|has_product:product as cart_qty %}
+  <div {% if not cart_qty %} style="display: none;" {% endif %}class="cart_qty_wrapper"> <span class="cart_qty">{{cart_qty|floatformat }}</span> in cart</div>
+{% endwith %}
 {% block payment_form %}    
 {% if product.measuredproduct.measurement_set %}
         {% trans "Amount" %} 

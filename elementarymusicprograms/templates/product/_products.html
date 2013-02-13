@@ -1,6 +1,6 @@
 {% load i18n %}
 {% load thumbnail %}
-{% load satchmo_price %}
+{% load satchmo_price satchmo_cart %}
 {% load satchmo_currency satchmo_category satchmo_product %}
 {% load satchmo_util satchmo_discounts %}
 {% load app_plugins config_tags  %}
@@ -16,6 +16,10 @@
             <!--
             <div id="items_in_stock">({{ product.items_in_stock|floatformat }} {% if product.measuredproduct.measurement_set %}yard{% else %}item{% endif %}{{ product.items_in_stock|pluralize }} in stock)</div>
             -->
+            {% with cart|has_product:product as cart_qty %}
+              <div {% if not cart_qty %} style="display: none;" {% endif %}class="cart_qty_wrapper"> <span class="cart_qty">{{cart_qty|floatformat }}</span> in cart</div>
+            {% endwith %}
+
             {% for option_group in options %}
                 {% ifequal option_group.id 5 %}
 
@@ -33,6 +37,8 @@
                 {% endfor %}
                 </select>
             {% endfor %}
+
+
             <br />
             	{% if product.measuredproduct.measurement_set %}
 	        {% trans "Amount" %}

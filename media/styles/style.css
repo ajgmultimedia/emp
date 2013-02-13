@@ -192,3 +192,6 @@ a:hover {
 	text-align:center;
 	color: #666;
 }
+.cart_qty_wrapper {
+    font-weight: bold;
+}
