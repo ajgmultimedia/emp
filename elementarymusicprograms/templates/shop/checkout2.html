@@ -1,0 +1,272 @@
+{% extends "shop/base.html" %}
+{% load form_tags app_plugins %}
+
+{% load satchmo_cart %}
+{% load satchmo_currency %}
+{% load satchmo_util %}
+{% load satchmo_product %}
+{% load satchmo_discounts %}
+{% load normalize_decimal %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block extrastyles %}
+<link rel="stylesheet" href="/media/global/css/jquery-ui.css" type="text/css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}checkout2.css" type="text/css" />
+{% endblock %}
+
+{% block extrascripts %}
+	<script src="/media/global/js/jquery-ui.js" type="text/javascript"></script>
+	<script>
+		$(function() {
+			function select_payment_option(event) {
+                $("#form-wrapper > div").hide();
+                $("#"+$(this).val()).show("fast");              
+            }
+            $("#payment-methods input").click(select_payment_option);
+            $("#payment-methods input").change(select_payment_option);
+
+            setTimeout(function() {
+    	        // {% if request.POST.key %}
+    	        $(":radio[value={{ request.POST.key }}]").attr("checked", true).trigger("change");
+    	        // {% else %}
+                $(":radio[value=FREE]").attr("checked", true).trigger("change");   	        
+    	        // {% endif %}
+            }, 500);
+
+            if ($("#form-wrapper :radio[name=payment_choice]").size() == 1) {
+                $("#form-wrapper :radio[name=payment_choice]").attr("checked", true).trigger("change");
+            }
+            $("select[name$=credit_type] option").each(function() {
+                var option = this;
+                var image = null;
+                switch($(this).attr("value")) {
+                case "Visa": 
+                	image = '<img src="/media/global/images/visa-grey.png" />';                    
+                    break;
+                case "Mastercard":
+                	image = '<img src="/media/global/images/mastercard-grey.png" />';
+                    break;
+                case "Discover":
+                	image = '<img src="/media/global/images/discover-grey.jpg" />';
+                    break;
+                case 'American Express':
+                	image = '<img src="/media/global/images/american-express-grey.jpg" />';
+                    break;
+                }
+                if (image) {
+                    image = $(image);
+                    image.attr("data-type", $(this).attr("value").replace(" ", "-"));
+                    $(this).parent().after(image);
+                    image.click(function(){
+                        $(option).select();
+                        $(option).parent().each(selected);
+                    });
+                }
+            })
+            function selected() {
+                // make all others grey
+                $(this).parent().find("img[data-type]").each(function() {
+                    var src = $(this).attr("src");
+                    if ( ! /\-grey\.(png|jpg)$/.test(src)) {
+                        src = src.replace(/\.(png|jpg)$/, "-grey.$1")
+                        $(this).attr("src", src);
+                    }
+                });
+                var img = $(this).parent().find("img[data-type="+$(this).val().replace(" ", "-")+"]");
+                if (img.length > 0) {
+                    var src = img.attr("src");
+                    src = src.replace(/\-grey\.(png|jpg)$/, ".$1");
+                    img.attr("src", src);
+                }
+            }
+            $("select[name$=credit_type]").after("<br />").change(selected);
+            setTimeout(function(){$("select[name$=credit_type]").each(selected)}, 100);
+            $("#checkout-btn").click(function() {
+            	//$(this).after("<p>Processing... Please wait</p>");
+            	//$(this).hide();
+            });
+		});
+	</script>
+  <script type="text/javascript" src="/media/js/jquery.colorbox.js"></script>
+  <link rel="stylesheet" type="text/css" href="/media/css/colorbox/theme4/colorbox.css" />
+  <script type="text/javascript">
+    $(function(){
+        $(".inline").colorbox({inline:true, width:"80%", height:"80%"});
+    });
+  </script>
+
+    {% plugin_point "checkout2_extrascripts" %}
+{% endblock %}
+
+{% block breadcrumbs %}
+<a href="/">Home</a> &rsaquo;
+<span class="checkout-links">
+	<a class="complete" href="{% url satchmo_cart %}">Cart</a> &rsaquo; 
+	<a class="active" href="{% url satchmo_cart %}">Payment</a>
+</span>
+{% endblock %}
+
+{% block content %}
+<div id="checkout-form">
+    
+    {% block form-top %}{% endblock %}
+    {% plugin_point "checkout2_form_top" %}
+    
+    <h2>Payment Information</h2>
+    {% block extra_payment_information %}{% endblock %}
+    
+    <div id="cart-table-wrapper">
+	    <div id="addresses">
+	        <div class="address">
+	            <h3>Billing Address</h3>{% with contact.billing_address as address %}
+	            {{ address.addressee|default:contact.full_name }}<br />
+	            {{ address.street1 }}<br />{% if address.street2 %}
+	            {{ address.street2|safe }}<br />{% endif %}
+	            {{ address.city }} {{ address.state }} {{ address.postal_code }}<br />{% endwith %}
+	        </div>
+	        <div class="address">
+	            <h3>Shipping Address</h3>{% with contact.shipping_address as address %}
+	            {{ address.addressee|default:contact.full_name }}<br />
+	            {{ address.street1 }}<br />{% if address.street2 %}
+	            {{ address.street2|safe }}<br />{% endif %}
+	            {{ address.city }} {{ address.state }} {{ address.postal_code }}<br />{% endwith %}
+	        </div>
+	    </div>
+        {% plugin_point "checkout2_cart_top" %}
+	    <table id="cart-table">
+		    <thead>
+		    	<tr>
+			    	<th align="left">Product</th>
+			        <th align="right">Price</th>
+				    <th align="center">Quantity</th>
+				    <th align="right">Total</th>
+			    </tr>
+			</thead>
+			<tbody>{% for cartitem in cart.cartitem_set.all %}
+		        <tr class="{% cycle 'row1' 'row2' %} cartitem">        
+		        	<td>{{ cartitem.product.name|safe }}</td>
+                    <td align="center">{{ cartitem.unit_price|currency }}</td>
+		            <td align="center">{{ cartitem.quantity|floatformat:2 }}</td>
+		            <td align="right">{{ cartitem.line_total|currency }}</td>
+		        </tr>{% endfor %}
+			</tbody>
+		</table>
+		<table id="totals-table">{% if cart_order.discount %}
+	        <tr>
+	            <th>Discount:</th>
+	            <td align="right">{{ cart_order.discount|currency }}</td>
+	        </tr>{% endif %}
+	    	<tr>
+			    <th>Subtotal:</th>
+			    <td align="right">{{ cart_order.sub_total|currency }}</td>
+			</tr>
+	    	<tr>
+			    <th>Tax:</th>
+	    		<td align="right">{{ cart_order.tax|currency }}</td>
+	    	</tr>{% if cart.is_shippable %}
+	    	<tr>
+			    <th>Shipping:</th>
+			    <td align="right">{{ cart_order.shipping_cost|currency }}</td>
+	    	</tr>{% endif %}
+	    	<tr>{% if cart_order.shipping_discount %}
+			    <th>Shipping Discount:</th>
+			    <td align="right">{{ cart_order.shipping_discount|currency }}</td>
+	    	</tr>{% endif %}
+		    <tr class="total-row">
+		    	<th align="right">Total:</th>
+		        <td align="right">{{ cart_order.total|currency }}</td>
+	        </tr>
+	    </table>
+        {% plugin_point "checkout2_cart_bottom" %}
+    </div>
+    
+    <div id="form-wrapper">    
+        {% block payment-form-top %}{% endblock %}
+        {% plugin_point "checkout2_payment_form_top" %}
+        <h3>Choose Payment Method</h3>
+    	<ul id="payment-methods">{% for module, form in modules.items %}
+    		<li>
+    		    <input type="radio" name="payment_choice" id="{{ module }}_radio" value='{{ module }}'/>
+    		    <label for="{{ module }}_radio">{{ form.module.LABEL|default:module }}</label>
+    		</li>{% endfor %}
+    	</ul>{% for module, form in modules.items %}
+   		<div id="{{ module }}" class="payment-method">
+            <form class="checkout-form" action="{{ form.url|default:'.' }}" name="paypal_form" method="post">
+               <input type="hidden" name="key" value='{{ module }}'/>
+   		       <h4>{{ form.module.LABEL }}</h4>
+                {% if form.module.INSTRUCTIONS %}<p>{{ form.module.INSTRUCTIONS|safe }}</p>{% endif %}
+                {% if form.INSTRUCTIONS %}<p>{{ form.INSTRUCTIONS|safe }}</p>{% endif %}
+                
+                {# Place all hidden fields #}                
+                {% for field in form %}{% if field.is_hidden %}{{ field }}{% endif %}{% endfor %}
+                
+       			<table>{% if form.is_needed %}
+       				{% for field in form %}{% if field.name != "notes" and field.name != "custom" and not field.is_hidden %}
+       				<tr>
+       					<th>{{ field.label_tag }}</th>
+       					<td>
+       						{{ field.errors }}
+       						{{ field }}{% if field.help_text %}
+                                                  {% if field.name != "ccv" %}
+       						    <p class="help">{{ field.help_text|safe }}</p>
+                                                    {% else %}
+                                                      {{ field.help_text|safe }}
+                                                  {% endif %}
+                                                {% endif %}
+       					</td>
+       				</tr>{% endif %}
+       				{% endfor %}
+       			{% endif %}
+       				{% if form.notes or form.custom %}
+       				<tr>
+       					<td></td>
+       					<td>
+       						<a class='show-notes-link' href="javascript:void(0)" onclick="$(this).parents('table').find('.notes-row').toggle()">
+       							Add a note to your order</a>
+       					</td>
+       				</tr>
+       				<tr class="notes-row" style="display: none">
+                                     {% if form.custom %}
+       					<th>{{ form.custom.label_tag }}</th>
+       					<td>{{ form.custom }}</td>
+                                     {% else %}
+       					<th>{{ form.notes.label_tag }}</th>
+       					<td>{{ form.notes }}</td>
+                                     {% endif %}
+       				</tr>
+       				{% endif %}
+       				<tr>
+       					<td colspan="2"></td>
+       				</tr>
+       				<tr>
+       					<td colspan="2">I accept and agree to the <a href="#inline_content" class="inline cboxElement">Terms and Conditions</a></td>
+       					<td><input id="chk" type="checkbox"/></td>
+       				</tr>
+       				<tr>
+       					<td colspan="2"></td>
+       				</tr
+    		    	<tr class="input-line">
+    				    <td></td>
+    		    		<td><input id="checkoutbtn" type="submit" value="Purchase Now!" style="display:none" /></td>
+    		    	</tr>
+    		    	<script type="text/javascript">
+					$('#chk').change(function() {
+					    $('#checkoutbtn').toggle();
+					});
+					</script>
+
+       			</table>
+            </form>
+   		</div>{% endfor %}
+        {% block payment-form-bottom %}{% endblock %}
+        {% plugin_point "checkout2_payment_form_bottom" %}
+    </div>    
+    <div style="display:none;">
+    	<div id="inline_content">
+    		{% insert_flatpage_content "Terms and Conditions" %}
+    	</div>
+    </div>
+    {% block form-bottom %}{% endblock %}
+</div>
+{% endblock %}

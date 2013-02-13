@@ -115,6 +115,7 @@ INSTALLED_APPS = (
     'danemco.apps.treemenus',
     'danemco.gallery',
     'danemco.newsletter',
+    'satchmo_ext.upsell',
 
     #'danemco.mini_shop',
     #'danemco.mini_shop.extensions.addresses',
