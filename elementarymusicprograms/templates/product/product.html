@@ -11,8 +11,9 @@ ProductVariations or CustomProducts, look for product/detail_xxx.html
 {% load satchmo_price %}
 {% load satchmo_currency satchmo_category %}
 {% load satchmo_util satchmo_discounts %}
-{% load app_plugins config_tags satchmo_cart %}
+{% load app_plugins config_tags satchmo_cart satchmo_product %}
 {% load social_tags %}
+{% load satchmo_upsell %}
 {% block title %}Shop | Category: {{ product.category.all.0.translated_name }} | Product: {{ product.translated_name }}{% endblock %}
 
 
@@ -156,7 +157,7 @@ ProductVariations or CustomProducts, look for product/detail_xxx.html
         </div>
         {% trans "Seats" %}
         {% else %}
-        {% trans "Quantity" %}
+        {{ product|get_attr:"quantity-label"|default:"Quantity" }}
         {% endif %}
          <input type="text" size="5" name="quantity" id="quantity" value="1" class="priced" />
     {% endif %}
@@ -164,7 +165,8 @@ ProductVariations or CustomProducts, look for product/detail_xxx.html
 <input type="hidden" name="productname" id="productname" value="{{ product.slug }}" />
 <input type="submit" name="addcart" value="{% trans "Add to Cart" %}" />
 {% plugin_point "product_add_buttons" %}
-{% plugin_point "product_form" %}
+{% product_upsell product %}
+
 <div id="statusupdate-actual" class="statusupdateproduct statusupdate"></div>
 </form>
 {% endifnotequal %}

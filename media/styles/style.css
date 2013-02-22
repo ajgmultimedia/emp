@@ -2,196 +2,231 @@
 /* CSS Document */
 
 body {
-	margin: 0;
-	padding: 0;
-	background: url(images/bg.gif);
-	font-family: Arial, Helvetica, sans-serif;
-	color: #28262a;
-	font-size: 13px;
+    margin: 0;
+    padding: 0;
+    background: url(images/bg.gif);
+    font-family: Arial, Helvetica, sans-serif;
+    color: #28262a;
+    font-size: 13px;
 }
 
 .clear {
-	clear:both;
+    clear:both;
 }
 
 img {
-	border: 0;
+    border: 0;
 }
 
 h1, h2, h3 {
-	color: #7a1419;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-weight: normal;
+    color: #7a1419;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-weight: normal;
 }
 
 a {
-	color: #800505;
+    color: #800505;
 }
 
 a:hover {
-	color: #b48787;
+    color: #b48787;
 }
 
 
 #leftCurtain {
-	position: absolute;
-	background: url(images/leftCurtain.png) no-repeat;
-	width: 118px;
-	height: 274px;
-	top: 0;
-	left: 0;
+    position: absolute;
+    background: url(images/leftCurtain.png) no-repeat;
+    width: 118px;
+    height: 274px;
+    top: 0;
+    left: 0;
 }
 
 #rightCurtain {
-	position: absolute;
-	background: url(images/rightCurtain.png) no-repeat;
-	width: 118px;
-	height: 274px;
-	top: 0;
-	right: 0;
+    position: absolute;
+    background: url(images/rightCurtain.png) no-repeat;
+    width: 118px;
+    height: 274px;
+    top: 0;
+    right: 0;
 }
 
 #wrapper {
-	background: url(images/wrapperBG.gif) repeat-x top center;
+    background: url(images/wrapperBG.gif) repeat-x top center;
 }
 
 #header {
-	margin: 0 auto;
-	width: 1035px;
-	height: 433px;
-	background: url(images/headerBG2.jpg) no-repeat;
+    margin: 0 auto;
+    width: 1035px;
+    height: 433px;
+    background: url(images/headerBG2.jpg) no-repeat;
 }
 
 #nav {
-	text-transform: uppercase;
-	padding: 10px 0 0 38px;
-	font-size: 15px;
-	
+    text-transform: uppercase;
+    padding: 10px 0 0 38px;
+    font-size: 15px;
+    
 }
 
 #nav ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 #nav li {
-	float: left;
-	margin: 0 15px;
-	padding: 10px 10px 7px;
-	z-index: 3000;
+    float: left;
+    margin: 0 15px;
+    padding: 10px 10px 7px;
+    z-index: 3000;
 }
 
 #nav a {
-	color: #fff;
-	text-decoration:none;
-	z-index: 3000;
-	position: relative;
+    color: #fff;
+    text-decoration:none;
+    z-index: 3000;
+    position: relative;
 }
 
 #nav a:hover {
-	color: #b48787;
+    color: #b48787;
 }
 
 .opposite {
-	background: #fff;
-	font-weight: bold;
+    background: #fff;
+    font-weight: bold;
 }
 
 #nav .opposite a {
-	color: #8a090a;
+    color: #8a090a;
 }
 
 #nav .opposite a:hover {
-	color: #000;
+    color: #000;
 }
 
 #logo {
-	padding: 110px 0 0 90px;
-	*padding: 50px 0 0 90px;
+    padding: 110px 0 0 90px;
+    *padding: 50px 0 0 90px;
 }
 
 #page {
-	background: #fff;
-	margin: 0 auto;
-	width: 959px;
-	padding-bottom: 26px;
+    background: #fff;
+    margin: 0 auto;
+    width: 959px;
+    padding-bottom: 26px;
 }
 
 #sidebar {
-	float: left;
-	width: 279px;
-	padding-left:26px;
-	padding-right: 23px;
+    float: left;
+    width: 279px;
+    padding-left:26px;
+    padding-right: 23px;
 }
 
 #sidenav {
-	background: url(images/navBG.gif) repeat-y;
+    background: url(images/navBG.gif) repeat-y;
 }
 
 #sidenav ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 #sidenav li {
-	padding: 7px 0 7px 20px;
-	background: url(images/note.gif) no-repeat 245px center;
+    padding: 7px 0 7px 20px;
+    background: url(images/note.gif) no-repeat 245px center;
 }
 
 #sidenav a {
-	color: #fff;
-	text-decoration:none;
-	font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 16px;
+    color: #fff;
+    text-decoration:none;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 16px;
 }
 
 #sidenav a:hover {
-	color: #b48787;
+    color: #b48787;
 }
 
 #sidenav h2 {
-	color: #fff;
-	text-align: center;
-	text-transform:uppercase;
-	margin: 0;
-	font-weight:normal;
-	font-family: Georgia, "Times New Roman", Times, serif;
+    color: #fff;
+    text-align: center;
+    text-transform:uppercase;
+    margin: 0;
+    font-weight:normal;
+    font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .divider {
-	background: url(images/divider.gif) no-repeat;
-	width: 272px;
-	height: 3px;
-	margin-left:3px;
-	*margin-left: -17px;
-	*margin-top: 15px;
+    background: url(images/divider.gif) no-repeat;
+    width: 272px;
+    height: 3px;
+    margin-left:3px;
+    *margin-left: -17px;
+    *margin-top: 15px;
 }
 
 .sidefooter {
-	background: url(images/navFooter.gif) no-repeat;
-	width: 279px;
-	height: 18px;
+    background: url(images/navFooter.gif) no-repeat;
+    width: 279px;
+    height: 18px;
 }
 
 #content {
-	float: right;
-	width: 595px;
-	padding-right: 25px;
+    float: right;
+    width: 595px;
+    padding-right: 25px;
 }
 
 .content {
-	
+    
 }
 
 #footer {
-	width: 600px;
-	margin: 0 auto;
-	padding: 10px 0;
-	text-align:center;
-	color: #666;
+    width: 600px;
+    margin: 0 auto;
+    padding: 10px 0;
+    text-align:center;
+    color: #666;
 }
 .cart_qty_wrapper {
     font-weight: bold;
+}
+.btn {
+    color: white;
+    text-align:center;
+    font-size:12px;
+    padding:6px;
+    *padding-bottom:5px;		/* IE7 */
+    padding:7px\0/;				/* IE8 */
+    border:solid 1px #141414;	/* Style To Site */
+    border-radius:5px 5px 5px 5px;
+    -moz-border-radius:5px 5px 5px 5px;
+    -webkit-border-radius:5px 5px 5px 5px;
+    background:#6C0A1C; /* Style To Site */
+    /* ------------- Style To Site ------------- */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#840F25', endColorstr='#6C0A1C'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#840F25), to(#6C0A1C)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #840F25,  #6C0A1C); /* for firefox 3.6+ */
+    /* ----------------------------------------- */
+    color:#FFFFFF;				/* Style To Site */
+    text-shadow:0px 1px 2px #141414;
+    display: block;
+    margin: 8px 3px;
+}
+
+.btn:hover {
+    border:solid 1px #141414;	/* Style To Site */
+    /* ------------- Style To Site ------------- */
+    background:#008F13;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#6C0A1C', endColorstr='#840F25'); /* for IE */
+    background: -webkit-gradient(linear, left top, left bottom, from(#6C0A1C), to(#840F25)); /* for webkit browsers */
+    background: -moz-linear-gradient(top,  #6C0A1C,  #840F25); /* for firefox 3.6+ */
+/* ----------------------------------------- */
+}
+#product_category a.btn{
+    color: white;
 }

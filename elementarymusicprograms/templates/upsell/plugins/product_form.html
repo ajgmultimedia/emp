@@ -1,0 +1,4 @@
+{% if product.upselltargets.count %}
+<br/>
+<a class="btn" href="{{ product.get_absolute_url }}">Click here for more options and to listen to the Demo!</a>
+{% endif %}
