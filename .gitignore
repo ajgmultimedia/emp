@@ -1,0 +1,11 @@
+*.pyc
+*log
+*log.*
+*.zip
+*.gz
+*.bz2
+.hg*
+media/
+misc/
+!media/styles
+!media/scripts
