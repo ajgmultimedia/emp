@@ -1,0 +1,86 @@
+{% extends "shop/base.html" %}
+{% load i18n paginator %}
+{% load thumbnail %}
+{% load satchmo_category satchmo_product %}
+{% block pagetitle %}<h3>{{ category.translated_name }}</h3>{% endblock pagetitle %}
+{% block title %}Shop | Category: {{ category.translated_name }}{% endblock %}
+
+{% block extra-head %}
+{% if category.meta %}
+    <meta name="description" content="{{ category.meta|escape }}">
+{% endif %}
+<script type="text/javascript">
+    /* <![CDATA[ */
+    function quantity_change (product_id)
+    {
+        if ($("#option_group_"+ product_id).val() != 'paper')
+            {
+                $("#quantity_label_"+ product_id).html("{% trans "Quantity" %}");
+
+                $("#quantity_div_"+ product_id).html('<input type="text" size="2" name="quantity" id="quantity_'+ product_id +'" value="1" class="priced" />');
+            }
+            else
+            {
+                $("#quantity_label_"+ product_id).html("{% trans "Size" %}");
+
+                {% get_mesurement_set "1" as ms %}
+                $("#quantity_div_"+ product_id).html('<select id="measure_id" name="measure_id"> {% for measure in ms %} <option value="{{ measure.id }}">{{ measure }}</option> {% endfor %}</select><input type="hidden" name="quantity" id="quantity" value="1" />');
+            }
+    }
+    /* ]]> */
+</script>
+<style type="text/css">
+    .paginator { text-align:center; padding-bottom:15px; }
+</style>
+{% endblock %}
+
+{% block navbar %}
+<div id="shop_nav">
+    <li class="first"><a href="{{ shop_base }}/">{% trans "Shop Home" %}</a></li>
+    {% for parent in category.parents %}<li><a href="{{ parent.get_absolute_url }}">{{ parent.translated_name }}</a></li>{% endfor %}
+    <li>{{ category.translated_name }}</li>
+<div style="clear:both;"></div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="product_category">
+{% if category.description %}<p class="product_category_description">{{ category.description|safe }}</p>{% endif %}
+     {% with category.active_products as p_products %}
+        {% with category as cat %}
+            {% ifequal request.GET.showall "1" %}
+              {% paginate p_products 100000 as page using page %}
+            {% else %}
+              {% paginate p_products 12 as page using page %}
+            {% endifequal %}
+            <div class="paginator">
+                {% include "product/_paginator_pages.html" %}
+            </div>
+            <div class="clear"></div>
+            {% for product in page.object_list %}
+                {% include 'product/_products.html' %}
+            {% endfor %}
+            <div class="clear"></div>
+            <div class="paginator">
+                {% include "product/_paginator_pages.html" %}
+            </div>
+        {% endwith %}
+    {% endwith %}
+ {% category_list category.slug as categories %}{% endcategory_list %}
+    <div class="child_categories">
+        {% for cat in categories %}
+            <div class="child_category">
+                <div class="thumbnail">
+                   {% if cat.main_image %}
+                       {% thumbnail cat.main_image.picture 120x120 as image %}
+                       <a href="{{ cat.get_absolute_url }}"><img src="{{ image }}" alt="" width="{{ image.width }}" height="{{ image.height }}" /></a>
+                    {% endif %} 
+                </div>
+                <a href="{{ cat.get_absolute_url }}"><h3>{{cat.translated_name}}</h3></a>
+                {% if cat.description %}<p class="product_category_description">{{ cat.description|safe }}</p>{% endif %}
+            </div>
+        {% endfor %}
+    </div>
+<div style="clear:both;"></div>
+</div>
+{% endblock %}
