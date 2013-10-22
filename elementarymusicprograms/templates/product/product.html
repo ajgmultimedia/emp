@@ -105,7 +105,7 @@ ProductVariations or CustomProducts, look for product/detail_xxx.html
 <!--
 <div id="items_in_stock">({{ product.items_in_stock|floatformat }} {% if product.measuredproduct.measurement_set %}yard{% else %}item{% endif %}{{ product.items_in_stock|pluralize }} in stock)</div>
 -->
-{% if user.group %}{{ user.group|title }} {% endif  %}<h1 style="clear: both;">{% trans "Price" %} {% if product.upselltargets.count %} for Orchestration Only{% endif %}{% if default_view_tax %} {% trans '(incl. tax)' %}{% endif %}:
+{% if user.group %}{{ user.group|title }} {% endif  %}<h1 style="clear: both;">{% if product.upselltargets.count %} Orchestration {% else %}Price{% endif %}{% if default_view_tax %} {% trans '(incl. tax)' %}{% endif %}:
 
     {% if sale %}<strike id="fullprice" style="display: block;">{% product_price product 1 "" %}</strike>{% endif %}
     <span>{% product_price %}</span>  {% block productprice-after %}{% endblock %}
