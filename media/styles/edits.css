@@ -4,6 +4,11 @@
     vertical-align: top;
 }
 
+.child_category a h3 {
+    font-size: 15px;
+    font-weight: normal;
+}
+
 #product_category li {
     border: none;
     min-height: 0px;
