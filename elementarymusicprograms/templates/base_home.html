@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% load danemco_tags thumbnail satchmo_util satchmo_category i18n %}
+
+{% block extrastyles %}
+{% endblock extrastyles %}
+
+{% block extrascripts %}
+{% endblock %}
+
+{% block extrahead %}
+{% endblock %}
+
+{% block extra-head %}
+{% endblock %}
+
+{% block content %}
+    {{ flatpage.content }}
+    <div class="clear"></div>
+    <h1 style="text-align: center;">Our Categories</h1>
+    <div id="category_list">
+        {% category_list as categories %}{% endcategory_list %}
+        {% for parent_category in categories  %} 
+            <div class="categorylist">    
+                {% if parent_category.main_image %}
+                    {% thumbnail parent_category.main_image.picture 200x190 as image %}
+                    <a href="{{ parent_category.get_absolute_url }}"><img src="{{ image }}" alt="" width="{{ image.width }}" height="{{ image.height }}" /></a>
+                {% endif %}     
+                <p><a href="{{ parent_category.get_absolute_url }}">{{ parent_category.translated_name }}</a></p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

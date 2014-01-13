@@ -71,7 +71,7 @@ INSTALLED_APPS = (
     'sorl.thumbnail',
     
     # Satchmo Store
-    'comment_utils',
+    #'comment_utils',
     'danemco.flex_shipping',
     'danemco.quickdata',
     'danemco.quickdata.modules.product',
