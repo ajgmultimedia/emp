@@ -67,7 +67,12 @@
 	 {% show_menu "topmenu" "unordered-list-named" %}
 	<script type ="text/javascript">
 $('#nav a[href^="/' + window.location.pathname.split('/')[1] + '/"]').parents('li').addClass('').addClass('opposite')
-	</script>  
+	</script>
+	        <script>
+	            $items = $("#menu-topmenu li");
+	            var len = $items.length;
+	            $items.css("width", (parseInt(100/len)-1.5) + "%");
+	        </script>
             <div class="clear"></div>
         </div>
         
