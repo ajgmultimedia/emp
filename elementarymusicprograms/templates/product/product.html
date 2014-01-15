@@ -84,10 +84,15 @@ ProductVariations or CustomProducts, look for product/detail_xxx.html
     {% if forloop.first %}
       {% thumbnail pic.picture 250x250 as med_image %}
       <div id="main_image_pic">
-    	<a class="product-image" href="{{ full_image.absolute_url }}">
-          <img id="main_image" src="{{ med_image.absolute_url }}" /><br/>
+        <img id="main_image" src="{{ med_image.absolute_url }}" />
+        
+        {% comment %}
+    	<!--<a class="product-image" href="{{ full_image.absolute_url }}">
+          <img id="main_image" src="{{ med_image.absolute_url }}" />
+          <br/>
           <div class="view">View Larger Image</div>
-        </a>
+        </a>-->
+        {% endcomment %}
       </div>
     {% else %}
       {% thumbnail pic.picture 50x50 as thumb_image %}

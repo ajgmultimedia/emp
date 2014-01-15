@@ -9,6 +9,9 @@
     min-height: 0px;
     min-width: 0px;
     padding: 6px;
+    float: none;
+    display: inline-block;
+    vertical-align: top;
 }
 
 #product_category li img {
@@ -17,7 +20,7 @@
     margin: 5px 0px;
 }
 
-#product_category #product_form_365 {
+#product_category ul li form {
     display: none;
 }
 
@@ -50,4 +53,12 @@
     border-color: #800505;
     border-radius: 5px;
     border: 5px solid;
+}
+
+#nav li {
+    float: none;
+    margin: 0;
+    padding: 10px 0;
+    display: inline-block;
+    text-align: center;
 }
