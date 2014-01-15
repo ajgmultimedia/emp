@@ -43,10 +43,12 @@
     display: inline-block;
     vertical-align: top;
     float: none;
+    text-align: center;
 }
 
 #category_list > .categorylist a {
     font-size: 15px;
+    text-decoration: none;
 }
 
 #category_list > .categorylist img {
