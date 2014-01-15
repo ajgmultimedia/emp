@@ -11,3 +11,4 @@ misc/
 !media/styles
 !media/scripts
 *~
+*.save
