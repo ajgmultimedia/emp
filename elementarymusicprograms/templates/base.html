@@ -41,6 +41,22 @@
             {% include 'shop/ajax_add_to_cart.js' %}
         </script>
 
+
+        <script type="text/javascript">
+            function playSound(el,soundfile) {
+                var embed = document.getElementById("embed");
+                if (!embed) {
+                    var embed = document.createElement("embed");
+                    embed.id= "embed";
+                    embed.setAttribute("src", soundfile);
+                    embed.setAttribute("hidden", "true");
+                    el.appendChild(embed);
+                } else {
+                    embed.parentNode.removeChild(embed);
+                }
+            }
+        </script>
+
   		{% block extrascripts %}{% endblock %}
   
 	     {# ADDS BLOG RSS #}        
@@ -79,39 +95,41 @@ $('#nav a[href^="/' + window.location.pathname.split('/')[1] + '/"]').parents('l
         <div id="logo">
         	<a href="/"><img src="/media/styles/images/logo.png" /></a>
         </div>
-        
+
+        <div id="listen-now">
+			<a onclick="playSound(this, '/media/audio/Newsies_Pre-recording-_LOUDER-_EMP_CLIP.mp3');" style="cursor: pointer;">
+                <img src="/media/styles/images/listen.png" alt="listen-now"/>
+            </a>
+		</div>
     </div>
     
     <div id="page">
     
     	<div id="sidebar">
         	<div id="sidenav">
-            	<h2>208-380-2333</h2><br>
-                <div class="divider" style="*margin-left:3px;"></div>
-            	<ul>
-                	<li><a href="/endorsements/">Testimonials</a></li>
-                	 <div class="divider"></div>
-                	 <li><a href="/about/">About EMP</a></li>
-                	  <div class="divider"></div>
-                	 <li><a href="/newsletter/subscribe/">Join Our Newsletter</a></li>
-                	 <div class="divider"></div>
-                	
-                </ul>
+                  <form class="search-form" action="/shop/search/" method="get">
+                    <input type="text" name="keywords" />
+                    <input type="submit" value="Search" />
+                  </form>
+            	{% insert_flatpage_content "Our Categories" %}
             </div>
             <div class="sidefooter"></div>
+			 <div class="social-media">
+				<ul>
+					<li class="first"><a href="https://www.facebook.com/pages/Elementary-Music-Programs/326526880735698" target="_blank"><img src="/media/styles/images/facebook-icon.png" /></a></li>
+					<li><a href="http://www.pinterest.com/EMP4kids/" target="_blank"><img src="/media/styles/images/pinterest-icon.png" /></a></li>
+					<li class="first"><a href="/" target="_blank"><img src="/media/styles/images/instagram-icon.png" /></a></li>
+					<li class="last"><a href="http://www.youtube.com/user/elementarymusic4kids" target="_blank"><img src="/media/styles/images/youtube-icon.png" /></a></li>
+				</ul>
+			</div>
             <p>
-            	<a href="/gallery/2/"><img src="/media/styles/images/gallery.jpg" /></a>
+            	<a href="http://www.tavacischool.com/" target="new"><img src="/media/styles/images/tavaci.png" /></a>
             </p>
-            <p>
-            	<a href="/shop/"><img src="/media/styles/images/orderNow.gif" /></a>
-            </p>
-            <p>
-            	<a href="https://www.facebook.com/pages/Elementary-Music-Programs/326526880735698" target="_blank"><img src="/media/styles/images/facebook.jpg" /></a>
-            </p>
+           
         </div>
         
         <div id="content" class="content">
-	<h1>{% block pagetitle %}{{flatpage.title}}{% endblock pagetitle %}</h1>
+		<h1>{% block pagetitle %}{{flatpage.title}}{% endblock pagetitle %}</h1>
 		{% include "snippets/messages.html" %}
         {% block content %}
         {% endblock content %}

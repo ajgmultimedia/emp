@@ -111,6 +111,12 @@ a:hover {
     *padding: 50px 0 0 90px;
 }
 
+#listen-now {
+	position: relative;
+	top: -79px;
+	left: 740px;
+}
+
 #page {
     background: #fff;
     margin: 0 auto;
@@ -158,6 +164,18 @@ a:hover {
     margin: 0;
     font-weight:normal;
     font-family: Georgia, "Times New Roman", Times, serif;
+	font-size: 18px;
+	padding: 0 15px 5px 15px;
+}
+
+#sidenav p {
+	margin: 0;
+	color: #fff;
+	text-align: left;
+	font-size: 16px;
+	padding: 8px 15px;
+    font-weight:normal;
+    font-family: Georgia, "Times New Roman", Times, serif;
 }
 
 .divider {
@@ -175,14 +193,33 @@ a:hover {
     height: 18px;
 }
 
+.social-media {
+	
+}
+
+.social-media ul {
+	list-style: none;
+	margin: 0;
+}
+
+.social-media li {
+	float: left;
+	padding: 15px 66px 15px 0;
+	margin-left: -38px;
+}
+
+.social-media li.last {
+	padding-right: 0;
+}
+
 #content {
     float: right;
     width: 595px;
     padding-right: 25px;
 }
 
-.content {
-    
+#content h1{
+	text-align: center;
 }
 
 #footer {
@@ -258,4 +295,12 @@ a:hover {
 #product_category img {
     border: none;
     box-shadow: none;
+}
+.search-form {
+    text-align: center;
+    margin: 0 auto 10px;
+    
+}
+.search-form input[type="text"] {
+    width: 150px;
 }
