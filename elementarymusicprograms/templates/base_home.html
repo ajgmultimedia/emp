@@ -9,15 +9,26 @@
 {% endblock %}
 
 {% block extrahead %}
+    <script type="text/javascript">
+        function playSound(el,soundfile) {
+            var embed = document.getElementById("embed");
+            if (!embed) {
+                var embed = document.createElement("embed");
+                embed.id= "embed";
+                embed.setAttribute("src", soundfile);
+                embed.setAttribute("hidden", "true");
+                el.appendChild(embed);
+            } else {
+                embed.parentNode.removeChild(embed);
+            }
+        }
+    </script>
 {% endblock %}
 
 {% block extra-head %}
 {% endblock %}
 
 {% block content %}
-    {{ flatpage.content }}
-    <div class="clear"></div>
-    <h1 style="text-align: center;">Our Categories</h1>
     <div id="category_list">
         {% category_list as categories %}{% endcategory_list %}
         {% for parent_category in categories  %} 
