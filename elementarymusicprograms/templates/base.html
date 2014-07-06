@@ -85,7 +85,7 @@
 $('#nav a[href^="/' + window.location.pathname.split('/')[1] + '/"]').parents('li').addClass('').addClass('opposite')
 	</script>
 	        <script>
-	            $items = $("#menu-topmenu li");
+	            $items = $("#menu-topmenu > li");
 	            var len = $items.length;
 	            $items.css("width", (parseInt(100/len)-1.5) + "%");
 	        </script>
