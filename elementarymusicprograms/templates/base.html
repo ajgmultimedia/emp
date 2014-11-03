@@ -57,6 +57,13 @@
             }
         </script>
 
+        <script>
+        var video = document.getElementById('video');
+        video.addEventListener('click',function(){
+        video.play();
+        },false);
+        </script>
+
   		{% block extrascripts %}{% endblock %}
   
 	     {# ADDS BLOG RSS #}        
@@ -97,8 +104,8 @@ $('#nav a[href^="/' + window.location.pathname.split('/')[1] + '/"]').parents('l
         </div>
 
         <div id="listen-now">
-			<a onclick="playSound(this, '/media/audio/Newsies_Pre-recording-_LOUDER-_EMP_CLIP.mp3');" style="cursor: pointer;">
-                <img src="/media/styles/images/listen.png" alt="listen-now"/>
+			<a href="/media/uploads/2014/05/28/files/EMP_Demo_.mp4" target="_blank" style="cursor: pointer;">
+                <img src="/media/styles/images/watch.png" alt="watch-now"/>
             </a>
 		</div>
     </div>
