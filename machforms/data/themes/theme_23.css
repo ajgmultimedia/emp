@@ -26,12 +26,12 @@ border-color: #CCCCCC;
 
 #main_body form li.highlighted,#main_body .matrix tbody tr:hover td,#machform_review_table tr.alt
 {
-background-color: #add8c7;
+background-color: #d8c5e8;
 }
 
 #main_body form .guidelines
 {
-background-color: #77cca4;
+background-color: #eba555;
 border-width: 1px;
 border-style: solid;
 border-color: #CCCCCC;
@@ -48,7 +48,7 @@ color: #444444;
 
 #main_body input.text,#main_body input.file,#main_body textarea.textarea,#main_body select.select,#main_body input.checkbox,#main_body input.radio
 {
-background-color: #d3e8de;
+background-color: #ececec;
 font-family: 'Verdana','Lucida Grande',Tahoma,Arial,sans-serif;
 font-weight: 400;
 font-style: normal;
@@ -62,7 +62,7 @@ font-family: 'Verdana','Lucida Grande',Tahoma,Arial,sans-serif;
 font-weight: 400;
 font-style: normal;
 font-size: 130%;
-color: #222222;
+color: #ececec;
 }
 
 #main_body .form_description h2,#main_body .form_success h2
@@ -71,7 +71,7 @@ font-family: 'Arial','Lucida Grande',Tahoma,Arial,sans-serif;
 font-weight: 400;
 font-style: normal;
 font-size: 160%;
-color: #000000;
+color: #ffffff;
 }
 
 #main_body .form_description p,#main_body form ul.payment_list_items li
@@ -94,13 +94,13 @@ font-family: 'Verdana','Lucida Grande',Tahoma,Arial,sans-serif;
 font-weight: 400;
 font-style: normal;
 font-size: 110%;
-color: #222222;
+color: #ececec;
 }
 
 #main_body form li span label,#main_body label.choice,#main_body .matrix th,#main_body form li span.symbol,.mf_sigpad_clear,#main_body form li div label
 {
 font-family: 'Verdana','Lucida Grande',Tahoma,Arial,sans-serif;
-color: #222222;
+color: #ececec;
 }
 
 #main_body form .section_break h3,#machform_review_table td .mf_section_title
@@ -109,7 +109,7 @@ font-family: 'Verdana','Lucida Grande',Tahoma,Arial,sans-serif;
 font-weight: 400;
 font-style: normal;
 font-size: 140%;
-color: #000000;
+color: #ececec;
 }
 
 #main_body form .section_break p,#machform_review_table td .mf_section_content
@@ -118,7 +118,7 @@ font-family: 'Verdana','Lucida Grande',Tahoma,Arial,sans-serif;
 font-weight: 400;
 font-style: normal;
 font-size: 110%;
-color: #000000;
+color: #ececec;
 }
 
 #main_body form li.section_break
