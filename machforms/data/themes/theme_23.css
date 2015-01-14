@@ -43,7 +43,7 @@ font-family: 'Verdana','Lucida Grande',Tahoma,Arial,sans-serif;
 font-weight: 400;
 font-style: normal;
 font-size: 100%;
-color: #444444;
+color: #000000;
 }
 
 #main_body input.text,#main_body input.file,#main_body textarea.textarea,#main_body select.select,#main_body input.checkbox,#main_body input.radio
@@ -53,7 +53,7 @@ font-family: 'Verdana','Lucida Grande',Tahoma,Arial,sans-serif;
 font-weight: 400;
 font-style: normal;
 font-size: 130%;
-color: #333333;
+color: #000000;
 }
 
 #machform_review_table td.mf_review_value
@@ -62,7 +62,7 @@ font-family: 'Verdana','Lucida Grande',Tahoma,Arial,sans-serif;
 font-weight: 400;
 font-style: normal;
 font-size: 130%;
-color: #ececec;
+color: #000000;
 }
 
 #main_body .form_description h2,#main_body .form_success h2
@@ -71,7 +71,7 @@ font-family: 'Arial','Lucida Grande',Tahoma,Arial,sans-serif;
 font-weight: 400;
 font-style: normal;
 font-size: 160%;
-color: #ffffff;
+color: #000000;
 }
 
 #main_body .form_description p,#main_body form ul.payment_list_items li
@@ -94,13 +94,13 @@ font-family: 'Verdana','Lucida Grande',Tahoma,Arial,sans-serif;
 font-weight: 400;
 font-style: normal;
 font-size: 110%;
-color: #ececec;
+color: #000000;
 }
 
 #main_body form li span label,#main_body label.choice,#main_body .matrix th,#main_body form li span.symbol,.mf_sigpad_clear,#main_body form li div label
 {
 font-family: 'Verdana','Lucida Grande',Tahoma,Arial,sans-serif;
-color: #ececec;
+color: #000000;
 }
 
 #main_body form .section_break h3,#machform_review_table td .mf_section_title
@@ -109,7 +109,7 @@ font-family: 'Verdana','Lucida Grande',Tahoma,Arial,sans-serif;
 font-weight: 400;
 font-style: normal;
 font-size: 140%;
-color: #ececec;
+color: #000000;
 }
 
 #main_body form .section_break p,#machform_review_table td .mf_section_content
@@ -118,7 +118,7 @@ font-family: 'Verdana','Lucida Grande',Tahoma,Arial,sans-serif;
 font-weight: 400;
 font-style: normal;
 font-size: 110%;
-color: #ececec;
+color: #000000;
 }
 
 #main_body form li.section_break
